@@ -33,6 +33,8 @@ public class UserApiController {
         return userService.findOne(id);
     }
 
+
+
 //    @PostMapping("/api/users")
 //    public ResponseEntity<User> create(@RequestBody UserDto dto) {
 //        User created = userService.create(dto);
@@ -50,6 +52,7 @@ public class UserApiController {
         User created = userService.create(dto);
         return ResponseEntity.status(HttpStatus.OK).body(created);
     }
+
 //    @PostMapping("/api/users{id}")
 //    public User create(@PathVariable Long id){
 //        return userService.create(id);

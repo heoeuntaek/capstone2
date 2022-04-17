@@ -26,7 +26,9 @@ public class UserService {
 
 
     public User findOne(Long id) {
+        log.info("정보 {}", userRepository.findById(id));
         return userRepository.findById(id).orElse(null);  //객체 하나 반환
+
     }
 
     public User create(UserDto dto) {
