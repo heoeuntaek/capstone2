@@ -32,6 +32,21 @@ public class User {
    @OneToMany(mappedBy = "user")
    private List<User_Group> user_group;
 
+   public void patch(User user) {
+
+      if (user.user_id != null) {
+         this.user_id = user.user_id;
+      }
+      if (user.user_name != null) {
+         this.user_name = user.user_name;
+      }
+      if (user.user_pass != null) {
+         this.user_pass = user.user_pass;
+      }
+      if (user.user_group != null) {
+         this.user_group = user.user_group;
+      }
+   }
 
 //           = new ArrayList<>();
 

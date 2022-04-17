@@ -1,6 +1,6 @@
-INSERT INTO user(id, user_id, user_pass,user_name) VALUES (1, 'id', 'pass', 'name');
-INSERT INTO user(id, user_id, user_pass,user_name) VALUES (2, 'id', 'pass', 'name');
-INSERT INTO user(id, user_id, user_pass,user_name) VALUES (3, 'id', 'pass', 'name');
+INSERT INTO user(id, user_id, user_pass,user_name) VALUES (1, '111', 'pa23ss', 'nam23e');
+INSERT INTO user(id, user_id, user_pass,user_name) VALUES (2, '222', 'passdfs', 'nam23e');
+INSERT INTO user(id, user_id, user_pass,user_name) VALUES (3, '333', 'pas23s', 'n213ame');
 
 -- -- article 더미 데이터 추가
 -- INSERT INTO article(id, title, content) VALUES (4, '당신의 인생 영화는?', '댓글 ㄱ');

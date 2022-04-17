@@ -1,10 +1,7 @@
 package com.example.capstone.dto;
 
 import com.example.capstone.entity.User;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.Column;
 
@@ -12,6 +9,7 @@ import javax.persistence.Column;
 @NoArgsConstructor
 @Getter
 @ToString
+@Setter
 
 public class UserDto {
 
@@ -21,6 +19,7 @@ public class UserDto {
     private String user_name;
 
     public User toEntity() {
+//        return new User(id, user_id, user_pass, user_name, null);
         return new User(id, user_id, user_pass, user_name, null);
     }
 
