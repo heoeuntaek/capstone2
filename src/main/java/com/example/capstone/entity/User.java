@@ -20,7 +20,7 @@ public class User {
    @GeneratedValue(strategy = GenerationType.IDENTITY) // db가 알아서 생성
    private Long id;
 
-   @Column
+   @Column (unique = true)
    private String user_id;
 
    @Column

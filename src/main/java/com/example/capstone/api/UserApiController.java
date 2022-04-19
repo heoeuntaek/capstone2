@@ -4,6 +4,7 @@ import com.example.capstone.dto.UserDto;
 import com.example.capstone.entity.User;
 import com.example.capstone.repository.UserRepository;
 import com.example.capstone.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
-
+@Slf4j
 @RestController
 public class UserApiController {
 
@@ -21,7 +22,8 @@ public class UserApiController {
 
     @Autowired
     private UserService userService;
-//
+
+    //
     @GetMapping("/api/users")
     public List<User> findAll() {
 
@@ -29,10 +31,14 @@ public class UserApiController {
     }
 
     @GetMapping("/api/users/{id}")
-    public User findOne(@PathVariable long id) {
-        return userService.findOne(id);
+    public User findOnebyId(@PathVariable long id) {
+        return userService.findOnebyId(id);
     }
 
+    @GetMapping("/api/user_id/{user_id}")
+    public User findOneByUser_id(@PathVariable String user_id) {
+        return userService.findOneByUser_id(user_id);
+    }
 
 
 //    @PostMapping("/api/users")
@@ -47,11 +53,20 @@ public class UserApiController {
 //    }
 
     @PostMapping("/api/users")
-    public ResponseEntity<User> create(UserDto dto) {
-//    public ResponseEntity<User> create(@Body UserDto dto) {
+    public ResponseEntity<User> create(@RequestBody UserDto dto) {
         User created = userService.create(dto);
         return ResponseEntity.status(HttpStatus.OK).body(created);
     }
+
+    @PostMapping("/api/login")
+    public ResponseEntity<User> login(@RequestBody UserDto dto) {    //HTTP요청의 내용을 객체에 매핑하기 위해 @RequestBody 를 설정.
+        User user = userService.login(dto);
+        log.info("로그인 성공");
+        return ResponseEntity.status(HttpStatus.OK).body(user);
+    }
+
+}
+
 
 //    @PostMapping("/api/users{id}")
 //    public User create(@PathVariable Long id){
@@ -70,16 +85,3 @@ public class UserApiController {
 //            ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 //
 //}
-
-
-
-
-
-
-
-
-
-
-
-
-}
