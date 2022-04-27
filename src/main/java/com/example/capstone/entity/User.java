@@ -51,28 +51,4 @@ public class User {
       }
    }
 
-//           = new ArrayList<>();
-
-//   @OneToMany
-//   private User_Group user_group;
-
-//https://codeung.tistory.com/254
-
-//   public User(int id, String user_id, String user_pass, String user_name) {
-//      this.id = id;
-//      this.user_id = user_id;
-//      this.user_pass = user_pass;
-//      this.user_name = user_name;
-//   }
-//
-//   @Override
-//   public String toString() {
-//      return "User{" +
-//              "id=" + id +
-//              ", user_id='" + user_id + '\'' +
-//              ", user_pass='" + user_pass + '\'' +
-//              ", user_name='" + user_name + '\'' +
-//              '}';
-//   }
-
 }

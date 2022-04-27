@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.List;
 
 @AllArgsConstructor  //생성자
 @NoArgsConstructor  //default생성자 추가
@@ -21,10 +20,10 @@ public class Schedule {
     private Long id;
 
     @Column(columnDefinition = "json")
-    private String schedul_data;
+    private String schedule_data;
 
     @Column
-    private String schedul_name;
+    private String schedule_name;
 
 
     @ManyToOne //해당 댓글 엔티티 여러개가, 다대일관계
