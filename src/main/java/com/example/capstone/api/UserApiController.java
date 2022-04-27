@@ -1,10 +1,13 @@
 package com.example.capstone.api;
 
 import com.example.capstone.dto.UserDto;
+import com.example.capstone.entity.Schedule;
 import com.example.capstone.entity.User;
+import com.example.capstone.repository.SchedultRepository;
 import com.example.capstone.repository.UserRepository;
 import com.example.capstone.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+
 @Slf4j
 @RestController
 public class UserApiController {
@@ -19,6 +24,9 @@ public class UserApiController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private SchedultRepository schedultRepository;
 
     @Autowired
     private UserService userService;
@@ -29,6 +37,12 @@ public class UserApiController {
 
         return userService.findAll();
     }
+
+    @GetMapping("/api/list/{user_name}")
+    public User findByUsername(@PathVariable String user_name) {
+        return userService.findByUser_name(user_name);
+    }
+
 
     @GetMapping("/api/users/{id}")
     public User findOnebyId(@PathVariable long id) {
@@ -65,6 +79,10 @@ public class UserApiController {
         return ResponseEntity.status(HttpStatus.OK).body(user);
     }
 
+    @GetMapping("test")
+    public Schedule test(){
+        return schedultRepository.findById(2L).get();
+    }
 }
 
 

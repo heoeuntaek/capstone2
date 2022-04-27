@@ -1,9 +1,6 @@
-package com.example.capstone.entity;
+package com.example.capstone.JpaMain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -14,8 +11,9 @@ import java.util.List;
 @Entity  //DB가 해당 객체 인식 가능   (해당 클래스로 테이블을 만듬)
 @ToString
 @Getter
+@Setter
 @Table (name = "user")
-public class User {
+public class User2 {
    @Id //PK
    @GeneratedValue(strategy = GenerationType.AUTO) // db가 알아서 생성
    private Long id;
@@ -30,12 +28,12 @@ public class User {
    private String user_name;
 
    @OneToMany(mappedBy = "user")
-   private List<User_group> user_groups = new ArrayList<>();
+   private List<Schedule2> schedules = new ArrayList<>();
 
    @OneToMany(mappedBy = "user")
-   private List<Schedule> schedules = new ArrayList<>();
+   private List<User_group2> user_groups;
 
-   public void patch(User user) {
+   public void patch(User2 user) {
 
       if (user.user_id != null) {
          this.user_id = user.user_id;
@@ -46,17 +44,15 @@ public class User {
       if (user.user_pass != null) {
          this.user_pass = user.user_pass;
       }
-      if (user.user_groups != null) {
-         this.user_groups = user.user_groups;
-      }
+//      if (user.user_groups != null) {
+//         this.user_groups = user.user_groups;
+//      }
    }
 
 //           = new ArrayList<>();
 
 //   @OneToMany
 //   private User_Group user_group;
-
-//https://codeung.tistory.com/254
 
 //   public User(int id, String user_id, String user_pass, String user_name) {
 //      this.id = id;

@@ -20,7 +20,7 @@ public class UserDto {
 
     public User toEntity() {
 //        return new User(id, user_id, user_pass, user_name, null);
-        return new User(id, user_id, user_pass, user_name, null);
+        return new User(id, user_id, user_pass, user_name, null, null);
     }
 
 }
