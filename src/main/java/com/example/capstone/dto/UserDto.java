@@ -3,8 +3,6 @@ package com.example.capstone.dto;
 import com.example.capstone.entity.User;
 import lombok.*;
 
-import javax.persistence.Column;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

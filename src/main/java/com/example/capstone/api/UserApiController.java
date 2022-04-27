@@ -42,13 +42,13 @@ public class UserApiController {
 
 
     @GetMapping("/api/users/{id}")
-    public User findOnebyId(@PathVariable long id) {
-        return userService.findOnebyId(id);
+    public User findbyId(@PathVariable long id) {
+        return userService.findbyId(id);
     }
 
     @GetMapping("/api/user_id/{user_id}")
-    public User findOneByUser_id(@PathVariable String user_id) {
-        return userService.findOneByUser_id(user_id);
+    public User findByUser_id(@PathVariable String user_login_id) {
+        return userService.findByUser_login_id(user_login_id);
     }
 
 

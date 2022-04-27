@@ -6,7 +6,6 @@ import com.example.capstone.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -28,15 +27,15 @@ public class UserService {
     }
 
 
-    public User findOnebyId(Long id) {
+    public User findbyId(Long id) {
         log.info("정보 {}", userRepository.findById(id));
         return userRepository.findById(id).orElse(null);  //객체 하나 반환
 
     }
 
-    public User findOneByUser_id(String user_id) {
-       log.info("정보 {}", userRepository.findOneByUser_id(user_id));
-        return userRepository.findOneByUser_id(user_id);  //객체 하나 반환
+    public User findByUser_login_id(String user_login_id) {
+       log.info("정보 {}", userRepository.findByUser_login_id(user_login_id));
+        return userRepository.findByUser_login_id(user_login_id);  //객체 하나 반환
     }
 
 
@@ -84,7 +83,7 @@ public class UserService {
         String user_pass = user.getUser_pass();
 
         // 2:Id를 이용해 db의 비번 조회
-        User target = userRepository.findOneByUser_id(user.getUser_id());  //기존에 있던 것
+        User target = userRepository.findByUser_login_id(user.getUser_login_id());  //기존에 있던 것
 //        User target = userService.findOneByUser_id(user.getUser_id());  //기존에 있던 것
 
         // db비번
