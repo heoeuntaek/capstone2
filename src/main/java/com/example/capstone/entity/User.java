@@ -29,8 +29,12 @@ public class User {
    @Column
    private String user_name;
 
-   @OneToMany(mappedBy = "user")
-   private List<Group_tbl> groups = new ArrayList<>();
+//   @OneToMany(mappedBy = "user")
+//   private List<Group_tbl> groups = new ArrayList<>();
+
+   @ManyToOne
+   @JoinColumn(name="group_id")
+   private Group_tbl group_tbl;
 
    @OneToMany(mappedBy = "user")
    private List<Schedule> schedules = new ArrayList<>();

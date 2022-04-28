@@ -15,6 +15,6 @@ public class GroupDto {
     private String matched_schedule;
 
     public Group_tbl toEntity() {
-        return new Group_tbl(id, group_code, group_name, null, null);
+        return new Group_tbl(id, group_code, group_name, null);
     }
 }

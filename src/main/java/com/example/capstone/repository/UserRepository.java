@@ -1,9 +1,11 @@
 package com.example.capstone.repository;
 
 import com.example.capstone.entity.User;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 
@@ -27,4 +29,13 @@ public interface UserRepository extends CrudRepository<User, Long>  {
                     "where user_name = :user_name",
             nativeQuery = true) //true로 해줘야 해당sql 동작
     User findByuser_name(@Param("user_name")String user_name);
+
+    @Transactional
+    @Modifying
+    @Query(value =
+            "update user " +
+                    "set group_id = null " +
+                    "where group_id = :group_id ",
+            nativeQuery = true) //true로 해줘야 해당sql 동작
+    void deleteGroupId(@Param("group_id") int group_id);
 }

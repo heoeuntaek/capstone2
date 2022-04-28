@@ -1,10 +1,12 @@
 package com.example.capstone.api;
 
 import com.example.capstone.dto.UserDto;
+import com.example.capstone.entity.Group_tbl;
 import com.example.capstone.entity.Schedule;
 import com.example.capstone.entity.User;
 import com.example.capstone.repository.ScheduleRepository;
 import com.example.capstone.repository.UserRepository;
+import com.example.capstone.service.GroupService;
 import com.example.capstone.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,9 @@ public class UserApiController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private GroupService groupService;
+
     //
     @GetMapping("/api/users")
     public List<User> findAll() {
@@ -42,7 +47,7 @@ public class UserApiController {
 
 
     @GetMapping("/api/users/{id}")
-    public User findbyId(@PathVariable long id) {
+    public User findbyId(@PathVariable Long id) {
         return userService.findbyId(id);
     }
 
@@ -79,6 +84,24 @@ public class UserApiController {
     @GetMapping("test")
     public Schedule test(){
         return schedultRepository.findById(2L).get();
+    }
+
+    @PatchMapping("/api/groupcode/{group_code}/{user_login_id}")
+    public ResponseEntity<User> participe_group(@PathVariable String group_code, @PathVariable String user_login_id) {
+        //group_code로 그룹 객체 조회
+        Group_tbl group_found = groupService.find_group_by_code(group_code);
+
+        //user_login_id로 유저 객체 조회
+        User user_target = userService.findByUser_login_id(user_login_id);
+
+        //유저객체에 그룹 객체 추가
+        user_target.setGroup_tbl(group_found);
+
+        //유저 객체 저장
+        userRepository.save(user_target);
+        log.info("user_target 저장성공{}",user_target);
+
+        return ResponseEntity.status(HttpStatus.OK).body(user_target);
     }
 }
 

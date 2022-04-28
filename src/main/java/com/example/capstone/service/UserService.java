@@ -1,7 +1,9 @@
 package com.example.capstone.service;
 
 import com.example.capstone.dto.UserDto;
+import com.example.capstone.entity.Group_tbl;
 import com.example.capstone.entity.User;
+import com.example.capstone.repository.GroupRepository;
 import com.example.capstone.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +21,8 @@ public class UserService {
     private UserRepository userRepository;
 
     @Autowired
-    private UserService userService;
+    private GroupRepository groupRepository;
+
 
 
     public List<User> findAll() {
@@ -106,5 +109,13 @@ public class UserService {
 
     public User findByUser_name(String user_name) {
         return userRepository.findByuser_name(user_name);
+    }
+
+    public Group_tbl find_group_by_code(String group_code, String user_login_id) {
+        Group_tbl found_group = groupRepository.findByGroup_code(group_code); // 그룹 코드로 group 조회
+
+
+        return found_group;
+
     }
 }

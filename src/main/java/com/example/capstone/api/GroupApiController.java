@@ -10,10 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @Slf4j
@@ -33,11 +30,32 @@ public class GroupApiController {
     private GroupService groupService;
 
 
-    @PostMapping("/api/group/{user_id}")
-    public ResponseEntity<Group_tbl> create_group(@RequestBody GroupDto dto, @PathVariable Long user_id) {
-        Group_tbl created = groupService.create_group(dto, user_id);
+    @PatchMapping("/api/group/{user_login_id}")
+    public ResponseEntity<Group_tbl> create_group(@RequestBody GroupDto dto, @PathVariable String user_login_id) {
+        Group_tbl created = groupService.create_group(dto, user_login_id);
         return ResponseEntity.status(HttpStatus.OK).body(created);
     }
+
+    @GetMapping("/api/group/{group_id}")
+    public ResponseEntity<Group_tbl>find_group_by_id(@PathVariable Long group_id) {
+        Group_tbl found = groupService.find_group_by_id(group_id);
+        return ResponseEntity.status(HttpStatus.OK).body(found);
+    }
+
+
+
+    @DeleteMapping("/api/group/{group_id}/{user_login_id}")
+    public ResponseEntity<Group_tbl> delete_group(@PathVariable Long group_id, @PathVariable String user_login_id) {
+        Group_tbl deleted = groupService.delete_group(group_id, user_login_id);
+        return ResponseEntity.status(HttpStatus.OK).body(deleted);
+    }
+
+    @GetMapping("/api/groupcode/{group_code}")
+    public ResponseEntity<Group_tbl>findby_group_code(@PathVariable String group_code) {
+        Group_tbl found = groupService.find_group_by_code(group_code);
+        return ResponseEntity.status(HttpStatus.OK).body(found);
+    }
+
 
 
 }

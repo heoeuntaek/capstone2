@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor  //생성자
@@ -16,6 +17,7 @@ import java.util.List;
 public class Group_tbl {
     @Id  //대표값 like 주민번호
     @GeneratedValue(strategy = GenerationType.IDENTITY) // db가 알아서 생성
+    @Column(name = "group_id")
     private Long id;
 
     @Column (unique = true)
@@ -27,9 +29,7 @@ public class Group_tbl {
     @Column
     private String matched_schedule;
 
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name="userId")
-    private User user;
+//    @OneToMany(mappedBy = "group_tbl")
+//    private List<User>users = new ArrayList<>();
 
 }
