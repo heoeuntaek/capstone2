@@ -1,5 +1,6 @@
 package com.example.capstone.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -26,6 +27,7 @@ public class Group_tbl {
     @Column
     private String matched_schedule;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="userId")
     private User user;
