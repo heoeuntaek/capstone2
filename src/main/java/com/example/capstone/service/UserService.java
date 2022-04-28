@@ -78,7 +78,7 @@ public class UserService {
         User user = dto.toEntity();
 
 //        입력받은 id
-        String user_id = dto.getUser_id();
+        String user_login_id = dto.getUser_login_id();
 //        입력받은 비번
         String user_pass = user.getUser_pass();
 

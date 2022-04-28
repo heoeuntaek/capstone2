@@ -12,13 +12,13 @@ import lombok.*;
 public class UserDto {
 
     private Long id;
-    private String user_id;
+    private String user_login_id;
     private String user_pass;
     private String user_name;
 
     public User toEntity() {
 //        return new User(id, user_id, user_pass, user_name, null);
-        return new User(id, user_id, user_pass, user_name, null, null);
+        return new User(id, user_login_id, user_pass, user_name, null, null);
     }
 
 }

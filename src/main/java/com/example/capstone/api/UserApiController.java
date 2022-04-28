@@ -46,8 +46,8 @@ public class UserApiController {
         return userService.findbyId(id);
     }
 
-    @GetMapping("/api/user_id/{user_id}")
-    public User findByUser_id(@PathVariable String user_login_id) {
+    @GetMapping("/api/user_id/{user_login_id}")
+    public User findByUser_login_id(@PathVariable String user_login_id) {
         return userService.findByUser_login_id(user_login_id);
     }
 

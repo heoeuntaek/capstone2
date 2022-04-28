@@ -14,6 +14,8 @@ import java.util.List;
 @Getter
 @Table (name = "user")
 public class User {
+
+   @Column(name = "user_id")
    @Id //PK
    @GeneratedValue(strategy = GenerationType.AUTO) // db가 알아서 생성
    private Long id;
