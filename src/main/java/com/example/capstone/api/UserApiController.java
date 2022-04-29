@@ -36,7 +36,6 @@ public class UserApiController {
     //
     @GetMapping("/api/users")
     public List<User> findAll() {
-
         return userService.findAll();
     }
 
@@ -54,6 +53,11 @@ public class UserApiController {
     @GetMapping("/api/user_id/{user_login_id}")
     public User findByUser_login_id(@PathVariable String user_login_id) {
         return userService.findByUser_login_id(user_login_id);
+    }
+
+    @GetMapping("/api/user_id_dto/{user_login_id}")
+    public UserDto findByUser_login_id_dto(@PathVariable String user_login_id) {
+        return userService.findByUser_login_id_dto(user_login_id);
     }
 
 
@@ -86,6 +90,8 @@ public class UserApiController {
         return schedultRepository.findById(2L).get();
     }
 
+
+    //그룹 참가
     @PatchMapping("/api/groupcode/{group_code}/{user_login_id}")
     public ResponseEntity<User> participe_group(@PathVariable String group_code, @PathVariable String user_login_id) {
         //group_code로 그룹 객체 조회

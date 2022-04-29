@@ -10,7 +10,7 @@ import java.util.List;
 @AllArgsConstructor  //생성자
 @NoArgsConstructor  //default생성자 추가
 @Entity  //DB가 해당 객체 인식 가능   (해당 클래스로 테이블을 만듬)
-@ToString
+@ToString        (exclude = "users")
 @Getter
 @Setter
 
@@ -28,6 +28,7 @@ public class Group_tbl {
 
     @Column
     private String matched_schedule;
+
 
 //    @OneToMany(mappedBy = "group_tbl")
 //    private List<User>users = new ArrayList<>();

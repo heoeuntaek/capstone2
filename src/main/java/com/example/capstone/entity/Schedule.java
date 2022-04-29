@@ -26,8 +26,8 @@ public class Schedule {
     private String schedule_name;
 
 
-    @ManyToOne //해당 댓글 엔티티 여러개가, 다대일관계
-    @JoinColumn(name = "userId") //  테이블에서 대상정보의 colum
+    @ManyToOne (fetch = FetchType.LAZY) //해당 댓글 엔티티 여러개가, 다대일관계
+    @JoinColumn(name = "user_id") //  테이블에서 대상정보의 colum
     private User user;
 
 

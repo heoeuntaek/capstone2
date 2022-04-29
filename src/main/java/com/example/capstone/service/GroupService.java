@@ -2,6 +2,7 @@ package com.example.capstone.service;
 
 
 import com.example.capstone.dto.GroupDto;
+import com.example.capstone.dto.UserDto;
 import com.example.capstone.entity.Group_tbl;
 import com.example.capstone.entity.User;
 import com.example.capstone.repository.GroupRepository;
@@ -10,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 @Slf4j
@@ -44,7 +47,7 @@ public class GroupService {
 
     }
 
-    public Group_tbl create_group(GroupDto dto, String user_login_id) {
+    public Group_tbl create_group(GroupDto dto, Long user_id) {
 
         //dto ->entity
         Group_tbl groupCreated = dto.toEntity();
@@ -55,7 +58,7 @@ public class GroupService {
         Group_tbl group_saved = groupRepository.save(groupCreated);
         //그룹에 user_id 추가
 
-        User targetUser = userRepository.findByUser_login_id(user_login_id);
+        User targetUser = userRepository.findById(user_id).orElse(null);
         targetUser.setGroup_tbl(groupCreated);
 
         log.info("그룹생성 {}", groupCreated);
@@ -67,9 +70,9 @@ public class GroupService {
 
     public Group_tbl delete_group(Long group_id, String user_login_id) {
         User user_target = userRepository.findByuser_name(user_login_id);
-        log.info("user_target{}",user_target);
-        log.info("user_target.getGroup_tbl(){}",user_target.getGroup_tbl());
-        log.info("user_target.getGroup_tbl().getId() {}",user_target.getGroup_tbl().getId());
+        log.info("user_target{}", user_target);
+        log.info("user_target.getGroup_tbl(){}", user_target.getGroup_tbl());
+        log.info("user_target.getGroup_tbl().getId() {}", user_target.getGroup_tbl().getId());
 //        log.info("user_target.getGroup_tbl().getId() {}",user_target.getGroup_tbl().getId().toString());
 
         userRepository.deleteGroupId(user_target.getGroup_tbl().getId().intValue());
@@ -77,7 +80,7 @@ public class GroupService {
         Group_tbl group_deleted = groupRepository.findById(group_id).get();
 
         groupRepository.deleteById(group_id);
-        log.info("group삭제 완료",user_target.getGroup_tbl().getId().toString());
+        log.info("group삭제 완료", user_target.getGroup_tbl().getId().toString());
         return group_deleted;
     }
 
@@ -89,5 +92,20 @@ public class GroupService {
     public Group_tbl find_group_by_code(String group_code) {
         return groupRepository.findByGroup_code(group_code);
 
+    }
+
+    public List<UserDto> all_user(Long group_id) {
+
+        //그룹 id로 유저 리스트 반환
+        List<User> users = userRepository.findByGroup_id(group_id);
+
+        //entity 를 dto로 변환
+        List<UserDto> userDtos = new ArrayList<>();
+        for (User user : users) {
+            UserDto userdto = UserDto.toDto(user);
+            userDtos.add(userdto);
+
+        }
+        return userDtos;
     }
 }

@@ -1,5 +1,6 @@
 package com.example.capstone.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import java.util.List;
 @NoArgsConstructor  //default생성자 추가
 @Entity  //DB가 해당 객체 인식 가능   (해당 클래스로 테이블을 만듬)
 @ToString
+//        (exclude = "group_tbl")
 @Setter
 @Getter
 @Table (name = "user")
@@ -29,10 +31,10 @@ public class User {
    @Column
    private String user_name;
 
-//   @OneToMany(mappedBy = "user")
-//   private List<Group_tbl> groups = new ArrayList<>();
 
+//   @JsonIgnore
    @ManyToOne
+//           (fetch = FetchType.LAZY)
    @JoinColumn(name="group_id")
    private Group_tbl group_tbl;
 

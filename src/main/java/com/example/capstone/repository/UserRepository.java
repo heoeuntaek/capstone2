@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface UserRepository extends CrudRepository<User, Long>  {
 
@@ -38,4 +39,7 @@ public interface UserRepository extends CrudRepository<User, Long>  {
                     "where group_id = :group_id ",
             nativeQuery = true) //true로 해줘야 해당sql 동작
     void deleteGroupId(@Param("group_id") int group_id);
+
+    @Query(value = "select * from user where group_id = :group_id", nativeQuery = true)
+    List<User> findByGroup_id(@Param("group_id")Long group_id);
 }

@@ -5,6 +5,7 @@ import com.example.capstone.entity.Group_tbl;
 import com.example.capstone.entity.User;
 import com.example.capstone.repository.GroupRepository;
 import com.example.capstone.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,14 +15,15 @@ import java.util.List;
 @Slf4j
 @Service
 //@Transactional
+@RequiredArgsConstructor
 public class UserService {
 
 
     @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    private GroupRepository groupRepository;
+    private final GroupRepository groupRepository;
 
 
 
@@ -32,13 +34,17 @@ public class UserService {
 
     public User findbyId(Long id) {
         log.info("정보 {}", userRepository.findById(id));
+        log.info("정보2{}", userRepository.findById(id).toString());
         return userRepository.findById(id).orElse(null);  //객체 하나 반환
 
     }
 
     public User findByUser_login_id(String user_login_id) {
        log.info("정보 {}", userRepository.findByUser_login_id(user_login_id));
-        return userRepository.findByUser_login_id(user_login_id);  //객체 하나 반환
+        User user_found = userRepository.findByUser_login_id(user_login_id);
+
+        //dto로 변환
+        return user_found;  //객체 하나 반환
     }
 
 
@@ -117,5 +123,11 @@ public class UserService {
 
         return found_group;
 
+    }
+
+    public UserDto findByUser_login_id_dto(String user_login_id) {
+        User user_found = userRepository.findByUser_login_id(user_login_id);
+        UserDto userDto = UserDto.toDto(user_found);
+        return userDto;
     }
 }

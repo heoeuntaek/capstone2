@@ -1,7 +1,9 @@
 package com.example.capstone.api;
 
 import com.example.capstone.dto.GroupDto;
+import com.example.capstone.dto.UserDto;
 import com.example.capstone.entity.Group_tbl;
+import com.example.capstone.entity.User;
 import com.example.capstone.repository.GroupRepository;
 import com.example.capstone.repository.UserRepository;
 import com.example.capstone.service.GroupService;
@@ -11,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @Slf4j
@@ -30,18 +34,19 @@ public class GroupApiController {
     private GroupService groupService;
 
 
-    @PatchMapping("/api/group/{user_login_id}")
-    public ResponseEntity<Group_tbl> create_group(@RequestBody GroupDto dto, @PathVariable String user_login_id) {
-        Group_tbl created = groupService.create_group(dto, user_login_id);
+
+    //그룹 생성
+    @PostMapping("/api/group/{user_id}")
+    public ResponseEntity<Group_tbl> create_group(@RequestBody GroupDto dto, @PathVariable Long user_id) {
+        Group_tbl created = groupService.create_group(dto, user_id);
         return ResponseEntity.status(HttpStatus.OK).body(created);
     }
 
     @GetMapping("/api/group/{group_id}")
-    public ResponseEntity<Group_tbl>find_group_by_id(@PathVariable Long group_id) {
+    public ResponseEntity<Group_tbl> find_group_by_id(@PathVariable Long group_id) {
         Group_tbl found = groupService.find_group_by_id(group_id);
         return ResponseEntity.status(HttpStatus.OK).body(found);
     }
-
 
 
     @DeleteMapping("/api/group/{group_id}/{user_login_id}")
@@ -51,11 +56,14 @@ public class GroupApiController {
     }
 
     @GetMapping("/api/groupcode/{group_code}")
-    public ResponseEntity<Group_tbl>findby_group_code(@PathVariable String group_code) {
+    public ResponseEntity<Group_tbl> findby_group_code(@PathVariable String group_code) {
         Group_tbl found = groupService.find_group_by_code(group_code);
         return ResponseEntity.status(HttpStatus.OK).body(found);
     }
 
-
-
+    @GetMapping("/api/{group_id}/userlist")
+    public ResponseEntity <List<UserDto>>users (@PathVariable Long group_id) {
+        List<UserDto> users = groupService.all_user(group_id);
+        return ResponseEntity.status(HttpStatus.OK).body(users);
+    }
 }
